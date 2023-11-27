@@ -82,11 +82,21 @@ for(const posts of user22.posts ){
 const comm=await posts.populate('comments')
 const like=await posts.populate('likes')
 
-    console.log(like,'what')
+
 
 }
+return
 
 }
-db.once('open',()=>{
-    seedData()
+db.once('open',async()=>{
+    try{
+      await   seedData()
+console.log('data seeded succesfully')
+    }catch(err){
+        console.log('error comes up')
+    }finally{
+        mongoose.connection.close().then(()=>{
+            console.log('db connection closed')
+        })
+    }
 })

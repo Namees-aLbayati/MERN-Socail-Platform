@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt=require("bcrypt")
+const bcrypt=require("bcryptjs")
 const saltRounds = 10;
 
 const userSchema = new mongoose.Schema(
@@ -25,9 +25,12 @@ posts:[{
   }
 )
 userSchema.pre("save", async function (next){
-this.password= await bcrypt.hash(this.password,saltRounds);
+  //console.log('passed middle pre save',this)
+ this.password=  await bcrypt.hash(this.password,saltRounds);
   next()
 })
+
+
 userSchema.methods.checkPassword=async function(password){
 return bcrypt.compare(password,this.password)
 }

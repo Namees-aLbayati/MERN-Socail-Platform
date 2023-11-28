@@ -7,22 +7,22 @@ module.exports={
 const getUsers=await User.find({}).populate('posts')
 const getfriends=await User.find({}).populate('friends')
 
-res.json(getfriends) 
+res.json({getfriends}) 
 
     },
+
  usersSignUp :async (req,res)=>{
-    const checkAvailibility=await User.findOne({email:req.email});
-if(checkAvailibility){
-const updateUser=await User.findOneAndUpdate({email:req.email},{req},{new:true})
-const userToken=signinToken(updateUser)
-
-return userToken
-}else{
-    const createNew=await User.create(req)
+    console.log('signup rec',req.body)
+try{
+    const createNew=await User.create(req.body)
     const userToken=signinToken(createNew)
-    return userToken
-}
+    console.log(userToken,createNew)
+return res.json({userToken})
 
+}catch(err){
+    res.json(err)
+}
+ 
 },
 
  userLogin: async(req,res)=>{

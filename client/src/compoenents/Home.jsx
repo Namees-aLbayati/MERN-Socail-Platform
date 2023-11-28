@@ -1,11 +1,21 @@
 import React from 'react'
 import AuthFun from '../utils/Auth'
 import LoginForm from './loginForm'
+import background from '../assets/images/background.jpg'
+import Dashboard from './dashboard'
 function Home() {
-    console.log('here i am',AuthFun.login())
+    console.log(AuthFun.IsloggedIn)
+    const backgroundSet={
+     
+
+        backgroundImage:AuthFun.IsloggedIn()?"":`url(${background})`,
+        backgroundSize:'cover',
+        backgroundPosition:'center',
+        height:'100vh'
+    }
   return (
-    <div>
-{AuthFun.login()?(<h1>logged in</h1>):(<LoginForm/>)
+    <div className='d-flex  align-items-center justify-content-center ' style={backgroundSet}>
+{AuthFun.IsloggedIn()?(<Dashboard/>):(<LoginForm/>)
 }   
  </div>
   )

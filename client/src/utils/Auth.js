@@ -1,12 +1,24 @@
 const AuthFun={
     IsloggedIn:function(){
-        return localStorage.getItem('token')
+        
+        let getUser=JSON.parse(localStorage.getItem('token'))
+        if(getUser){
+            return true
+        }else{
+            return false
+        }
         
         
             },
             login:function(userData){
-         const a=localStorage.setItem('token',userData)
-         console.log(a,'login here')
+if(!userData){
+    localStorage.removeItem('token')
+
+return 
+}else{
+    localStorage.setItem('token',JSON.stringify(userData.userToken))
+    window.location.href='/dashboard'
+}
             },
             logout:function(){
                 localStorage.removeItem('token')

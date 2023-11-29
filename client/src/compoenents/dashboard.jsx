@@ -1,10 +1,9 @@
 import React from 'react'
+import NavBar from '../dashboardPages/NavBar'
 
 function Dashboard() {
   return (
-    <div>
-      welcome in you are in your dashboard
-    </div>
+<NavBar/>
   )
 }
 

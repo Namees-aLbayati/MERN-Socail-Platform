@@ -1,4 +1,13 @@
+import { jwtDecode } from "jwt-decode";
+
 const AuthFun={
+    getProfile(data){
+
+const getToken=JSON.parse(localStorage.getItem('token'));
+const decoded = jwtDecode(getToken, "mysecret");
+
+return decoded
+    },
     IsloggedIn:function(){
         
         let getUser=JSON.parse(localStorage.getItem('token'))

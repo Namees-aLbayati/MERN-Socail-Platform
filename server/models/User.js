@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt=require("bcryptjs")
-const saltRounds = 10;
 
 const userSchema = new mongoose.Schema(
   {
@@ -25,14 +24,26 @@ posts:[{
   }
 )
 userSchema.pre("save", async function (next){
-  //console.log('passed middle pre save',this)
- this.password=  await bcrypt.hash(this.password,saltRounds);
+    const salt = 10;
+    if ( this.isModified('password')) {
+
+    this.password = await bcrypt.hashSync(this.password, salt);
+    }
+ //this.password=  await bcrypt.hash(this.password,saltRounds);
   next()
 })
 
 
-userSchema.methods.checkPassword=async function(password){
-return bcrypt.compare(password,this.password)
+userSchema.methods.checkPassword= async function(password){
+  try {
+
+
+return  await bcrypt.compare(password,this.password); 
+
+  } catch (error) {
+    console.error('Error during password comparison:', error);
+    return false; // Return false in case of an error
+  }
 }
 
 const User = mongoose.model('User', userSchema);

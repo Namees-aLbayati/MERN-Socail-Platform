@@ -4,7 +4,6 @@ const User=require('./User');
 const Post=require('./Post');
 const Comment=require('./Comment');
 
-const debug=require('mongoose').set('debug', true)
 
 async function seedData(){
    await User.deleteMany({});
@@ -23,6 +22,8 @@ await postFU2.save()
 
     const user1=new User({userName:'namees mohammed',email:'n@n.com',password:'1111'});
     const user2=new User({userName:'layth najm',email:'l@l.com',password:'1111'});
+    const user3=new User({userName:'ayla najm',email:'a@a.com.com',password:'1111'});
+
    await user1.save();
   await  user2.save();
 

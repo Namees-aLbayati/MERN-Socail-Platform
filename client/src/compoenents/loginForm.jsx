@@ -29,14 +29,32 @@ function handelForm(e){
 useEffect(()=>{
 
   if(dataToFetch!==undefined){
-    axios.post('/users/signup',dataToFetch).then((result)=>{
-      if(result.status===200){
-        AuthFun.login(result.data);
 
-      }else{
-        window.alert('something went wrong')
-      }
-    })
+    console.log('here',dataToFetch.userName=="")
+if(dataToFetch.userName!==""){
+
+  axios.post('/users/signup',dataToFetch).then((result)=>{
+    if(result.status===200){
+   AuthFun.login(result.data);
+
+    }else{
+      window.alert('something went wrong')
+    }
+  })
+
+}else{
+axios.post('/users/login',dataToFetch).then((result)=>{
+  console.log('returned from login server',result)
+  if(result.status===200){
+    AuthFun.login(result.data);
+
+  }
+})
+
+
+}
+  
+
 
   }
   },[dataToFetch])

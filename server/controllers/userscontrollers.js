@@ -4,10 +4,9 @@ const data={userName:'ali',email:'a@a.com',password:'123'}
 const {signinToken}=require('../utils/Auth')
 module.exports={
     getAllTest:async(req,res)=>{
-const getUsers=await User.find({}).populate('posts')
-const getfriends=await User.find({}).populate('friends')
-
-res.json({getfriends}) 
+const getUsers=await User.find({})
+const getfriends=await User.find({})
+res.json({getUsers}) 
 
     },
 
@@ -25,22 +24,28 @@ return res.json({userToken})
  
 },
 
- userLogin: async(req,res)=>{
-    let tocheckpass='123'
-   
-        const findUser=await User.findOne({userName:'ali'})
-if(!findUser){
-//res.json({message: 'not found'})
+userLogin: async (req, res) => {
+    const findUser = await User.findOne({ email: req.body.email });
+  
+    if (!findUser) {
+      res.json({ message: 'Email not found' });
+    } else {
+      const validatePass = await findUser.checkPassword(req.body.password);
+  
+      // Now you can use validatePass for further logic
+      if (validatePass) {
+        // Password is correct
+         const userToken = signinToken(findUser);
+        res.json({ userToken });
+      } else {
+      res.json({messege:'route pasword NOTcorrect'})
 
-}else{
-    const validatePass=await findUser.checkPassword(tocheckpass)
- if(!validatePass){
-  //  res.json({message: 'password is not correct'})
-
- }
-const userToken=signinToken(findUser)
-return userToken
-}},
+        // Password is incorrect
+     //   res.json({ message: 'Incorrect password' });
+      }
+    }
+  },
+  
  usersPostGET:async(req,res)=>{
 const getPost=await User.findOne(req)
 return getPost

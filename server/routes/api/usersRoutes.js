@@ -3,4 +3,6 @@ const {getAllTest,usersSignUp,userLogin,usersPostGET,createPost}=require('../../
 const {tokenMiddleware,signinToken}=require('../../utils/Auth')
 router.route('/').get(getAllTest)
 router.route('/signup').post(usersSignUp)
+router.route('/login').post(userLogin)
+
 module.exports=router

@@ -12,6 +12,11 @@ email:{
 password:{
   type:String
 },
+profile:{
+bio:String,
+dob:Date,
+addresss:String
+},
 friends:[{
   type:mongoose.Schema.Types.ObjectId,
   ref:'User'

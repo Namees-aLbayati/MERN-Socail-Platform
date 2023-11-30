@@ -20,13 +20,12 @@ const postFU2=new Post({content:'hello friends this is layth'})
 await postFU1.save()
 await postFU2.save()
 
-    const user1=new User({userName:'namees mohammed',email:'n@n.com',password:'1111'});
-    const user2=new User({userName:'layth najm',email:'l@l.com',password:'1111'});
-    const user3=new User({userName:'ayla najm',email:'a@a.com.com',password:'1111'});
+    const user1=new User({userName:'namees mohammed',email:'n@n.com',password:'1111',profile:{bio:"software engineer with a passion to life "}});
+    const user2=new User({userName:'layth najm',email:'l@l.com',password:'1111',profile:{addresss:"USA,TX,AUSTIN"}});
+    const user3=new User({userName:'ayla najm',email:'a@a.com.com',password:'1111',profile:{dob:new Date('07-27-2020')}});
 
    await user1.save();
   await  user2.save();
-
   user1.friends.push(user2._id)
   user2.friends.push(user1._id)
   

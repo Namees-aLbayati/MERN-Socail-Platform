@@ -44,7 +44,6 @@ if(dataToFetch.userName!==""){
 
 }else{
 axios.post('/users/login',dataToFetch).then((result)=>{
-  console.log('returned from login server',result)
   if(result.status===200){
     AuthFun.login(result.data);
 

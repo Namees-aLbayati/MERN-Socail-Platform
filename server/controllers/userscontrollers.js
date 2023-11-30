@@ -47,9 +47,9 @@ userLogin: async (req, res) => {
   },
   
  usersPostGET:async(req,res)=>{
-const getPost=await User.findOne(req)
-return getPost
-},
+    const Id=req.params.userId
+const getPost=await User.findById(Id).populate('posts')
+res.json({getPost})},
  createPost:async(req,res)=>{
 try{
     const getPostID=await Post.create({content:req.content});

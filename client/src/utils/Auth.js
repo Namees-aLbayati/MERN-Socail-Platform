@@ -5,7 +5,7 @@ const AuthFun={
 
 const getToken=JSON.parse(localStorage.getItem('token'));
 const decoded = jwtDecode(getToken, "mysecret");
-
+localStorage.setItem('user',JSON.stringify(decoded.data))
 return decoded
     },
     IsloggedIn:function(){

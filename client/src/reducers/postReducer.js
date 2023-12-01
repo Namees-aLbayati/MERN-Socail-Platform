@@ -1,12 +1,14 @@
 // reducers/postReducer.js
 const initialState = {
 
-    currentUser:JSON.parse(localStorage.getItem('user'))||null,
+    user:JSON.parse(localStorage.getItem('user'))||null,
     searchedUser:null,
     posts: [],
     
     isFetch: false,
-    error: "error should be here",
+    error: null,
+    darkmode:false
+
   };
   
   export const postReducer = (state = initialState, action) => {
@@ -46,7 +48,10 @@ searchedUser:action.payload
         case"LOGOUT":
         return{
 ...state,currentUser:null
-        }
+        };
+        case "THEME_MODE":
+            return {...state,darkmode:action.payload};
+
       default:
         return state;
     }

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Avatar,Box,MoreIcon,IconButton } from '@mui/material';
 function AvatarImage({ userFullname }) {
+console.log('c',userFullname)
   const  getRandomIndex=Math.floor(Math.random()*8)+1
     const imagePath = `static/images/${getRandomIndex}.jpg`;
-console.log(userFullname.userName,'he')
 const firstName=userFullname.userName.split(" ")[0]
     return (
           <div className='d-flex flex-row m-2'  >

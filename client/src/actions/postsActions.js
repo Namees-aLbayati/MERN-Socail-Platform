@@ -26,7 +26,11 @@ export const setFetchPostFail=(error)=>({
     payload:error
 });
 
-
+export const SET_THEME_MODE=(data)=>({
+    
+    type:'THEME_MODE',
+    payload:data
+})
 
 export const fetchUserPostFun=async(userId,dispatch)=>{
 

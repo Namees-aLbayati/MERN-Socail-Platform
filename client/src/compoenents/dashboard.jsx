@@ -7,6 +7,7 @@ import { fetchPostSuccess, fetchUserPostFun, setCurrentUser } from '../actions/p
 import AuthFun from '../utils/Auth'
 import { Link,useNavigate } from 'react-router-dom'
 import LeftBar from './UserComp/leftBar/leftBar';
+import HeartOfPage from './UserComp/rest/heartOfPage';
 function Dashboard() {
 
     const checkDarkMode=useSelector((state)=>state.post.darkmode)
@@ -65,20 +66,19 @@ const dashDarkToggle=()=>{
         {AuthFun.IsloggedIn()?( 
             <section >
                 <NavBar/>
-                <LeftBar/>
 
-        <div class="container text-center">
 
   <div class="row">
-    <div class="">
+    <div class='col-4'>
+    <LeftBar/>
+
     </div>
-    <div class="col-8 " style={vertical}>
-      2 of 3 (wider)
+    <div class='col-6'>
+    <HeartOfPage/>
+
     </div>
-    <div class="col" style={vertical}>
-      3 of 3
-    </div>
-  </div>
+
+
   </div>
   
   </section>

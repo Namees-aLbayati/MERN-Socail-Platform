@@ -6,13 +6,22 @@ module.exports={
 const payload={_id,userName,password};
 return jwt.sign({data:payload},secret)
     },
-    tokenMiddleware:function(req,res,next){
-        console.log('inside middleware')
-        try{
-const data=jwt.verify()
-        }catch(err){
-            throw err
+    tokenMiddleware: async function (req, res, next) {
+        const authorizationHeader = req.headers.authorization;
+
+        if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {
+            const token = authorizationHeader.slice(7); // Remove the "Bearer " prefix
+            const tokenWithoutQuote = token.trim(); // Remove leading/trailing whitespaces and the last single quote if present
+
+            try {
+                const decoded = jwt.verify(tokenWithoutQuote, secret);
+                console.log('Token verification successful:', decoded);
+                
+            } catch (error) {
+                console.error('Token verification failed:', error.message);
+            }
         }
-next()
+
+        next();
     }
 }

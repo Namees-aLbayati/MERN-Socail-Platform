@@ -64,7 +64,10 @@ export default function NavBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-<AvatarImage userFullname={userFullname}/>
+            <div class='d-flex flex-wor'>
+              <AvatarImage userFullname={userFullname}/>
+<p style={{fontSize:'14px',marginTop:'20px'}}>Signed in As:{userFullname.userName}</p>
+            </div>
           </Typography>
 
           <Icons/>

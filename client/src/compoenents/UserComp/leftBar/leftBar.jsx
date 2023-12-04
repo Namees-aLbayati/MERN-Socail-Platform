@@ -1,39 +1,47 @@
-'use client';
-import { Badge, IconButton } from '@mui/material'
-import HomeIcon from '@mui/icons-material/Home';
-
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
-import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import {Link } from 'react-router-dom'
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import InboxIcon from '@mui/icons-material/Inbox';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import Avatar from '@mui/material/Avatar';
+import GroupIcon from '@mui/icons-material/Group';
+//will fetch friends list here
 export default function LeftBar() {
   return (
+    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.secondary' }}>
+      <nav aria-label="main mailbox folders">
+        <List>
+        <ListItem disablePadding >
+            <ListItemButton>
+              <ListItemIcon>
+<GroupIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Friends List" />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
 
-    <Sidebar>
-     <Menu
-    menuItemStyles={{
-      button: {
-        // the active class will be added automatically by react router
-        // so we can use it to style the active menu item
-        [`&.active`]: {
-          backgroundColor: '#13395e',
-          color: '#b6c8d9',
-        },
-      },
-    }}
-  >
-    <MenuItem component={<Link to="#" />}> 
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
 
-    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={0} color="error">
-            <HomeIcon /> 
-         
-          </Badge>
-        </IconButton>
+              </ListItemIcon>
+              <ListItemText primary="Inbox" />
+            </ListItemButton>
+          </ListItem>
 
-    </MenuItem>
-    <MenuItem component={<Link to="#" />}> Calendar</MenuItem>
-    <MenuItem component={<Link to="#" />}> E-commerce</MenuItem>
-  </Menu>
-    </Sidebar>
+
+        
+        
+        </List>
+      </nav>
+     
+    </Box>
   );
 }

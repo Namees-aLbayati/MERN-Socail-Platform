@@ -50,7 +50,9 @@ userLogin: async (req, res) => {
     const Id=req.params.userId
 const getPost=await User.findById(Id).populate('posts')
 res.json({getPost})},
+
  createPost:async(req,res)=>{
+    console.log('inside create post route')
 try{
     const getPostID=await Post.create({content:req.content});
 if(!getPostID){

@@ -12,9 +12,16 @@ export function PostCreationModal(props) {
         userId:userId
     });
 
-    function handelSharePost(e){
+    function  handelSharePost(e){
         e.preventDefault()
-        RestfulRequestFun.createPostRequest(postCreationForm)
+      RestfulRequestFun.createPostRequest(postCreationForm).then((data)=>{
+    if(data){
+      window.alert('posted!')
+      postCreationForm.postContent="";
+      props.onHide()
+
+    }
+      })
         
 
     }

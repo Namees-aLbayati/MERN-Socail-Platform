@@ -38,7 +38,7 @@ try{
 
   dispatch(setFetchPostRequest())
 const userPosts = await axios.get(`http://localhost:3001/users/post/${userId}`);
-dispatch(setFetchPostSuccess(userPosts))
+dispatch(setFetchPostSuccess(userPosts.data.getPost.posts))
 
 
 }catch(err){

@@ -4,24 +4,36 @@ module.exports={
     signinToken:function({_id,userName,password}){
         console.log('sigin token here')
 const payload={_id,userName,password};
-return jwt.sign({data:payload},secret)
+return jwt.sign({ data: payload }, secret, { expiresIn: "24h" });
+
     },
-    tokenMiddleware: async function (req, res, next) {
-        const authorizationHeader = req.headers.authorization;
+     tokenMiddleware : async function (req, res, next) {
+        let token = req.query.token || req.headers.authorization;
+    // ["Bearer", "<tokenvalue>"]
+    if (req.headers.authorization) {
+      token = token.split(' ').pop().trim();
+   
 
-        if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {
-            const token = authorizationHeader.slice(7); // Remove the "Bearer " prefix
-            const tokenWithoutQuote = token.trim(); // Remove leading/trailing whitespaces and the last single quote if present
-
-            try {
-                const decoded = jwt.verify(tokenWithoutQuote, secret);
-                console.log('Token verification successful:', decoded);
-                
-            } catch (error) {
-                console.error('Token verification failed:', error.message);
-            }
-        }
-
-        next();
     }
+
+    if (!token) {
+      return res.status(400).json({ message: 'You have no token!' });
+    }
+
+    // verify token and get user data out of it
+    try {
+      const check=  jwt.verify(token, secret);
+      req.user=check
+      next();
+
+    } catch {
+    
+      console.log('Invalid token');
+      return res.status(400).json({ message: 'invalid token!' });
+    }
+
+    // send to next endpoint
+  }
+    
+      
 }

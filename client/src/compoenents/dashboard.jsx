@@ -3,7 +3,7 @@ import NavBar from './UserComp/Nav/NavBar'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import {useDispatch,useSelector} from 'react-redux'
-import { fetchPostSuccess, fetchUserPostFun, setCurrentUser } from '../actions/postsActions'
+import { fetchPostSuccess, setCurrentUser } from '../actions/postsActions'
 import AuthFun from '../utils/Auth'
 import { Link,useNavigate } from 'react-router-dom'
 import LeftBar from './UserComp/leftBar/leftBar';
@@ -69,7 +69,7 @@ const dashDarkToggle=()=>{
 
 
   <div class="row">
-    <div class='col-4'>
+    <div class='col-3'>
     <LeftBar/>
 
     </div>

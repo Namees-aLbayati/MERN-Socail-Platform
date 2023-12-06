@@ -1,5 +1,6 @@
 const {User,Post}=require('../models');
 const db=require('../config/connection')
+const mongoose=require('mongoose')
 const data={userName:'ali',email:'a@a.com',password:'123'}
 const {signinToken}=require('../utils/Auth')
 module.exports={
@@ -52,18 +53,30 @@ const getPost=await User.findById(Id).populate('posts')
 res.json({getPost})},
 
  createPost:async(req,res)=>{
-    console.log('inside create post route')
+  //  const userId=user.data._id;
+   // const userNameEl=user.data.userName;
+   // const postContent=body.postContent;
+console.log(req.params,req.user,req.body)
 try{
-    const getPostID=await Post.create({content:req.content});
+    const getPostID=await Post.create({content:req.body.postContent});
+    console.log(getPostID,'post created')
+
 if(!getPostID){
     console.log('something went wrong while create post')
 }else{
-    const addpostIdTouser=await User.findOneAndUpdate({$or:[{userName:req.userName},{_id:req.id}]},
-        {$addToSet:{posts:getPostID._id}},
-        {new:true,runValidators:true}
-        );
-return addpostIdTouser
+ const pos=await User.findOneAndUpdate(
+    {userName:req.user.data.userName},
+    {$addToSet:{posts:getPostID._id}},
+   )
+if(!pos){
+
+return res.this.state(400).json(err)
 }
+return res.json(pos)
+
+};
+
+
 
 }catch(err){
     return err

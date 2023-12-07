@@ -46,3 +46,8 @@ dispatch(setFetchPostFail(err))
 
 }
 }
+export const addComment=async(postId,userComment,dispatch)=>{
+const addComment=await axios.put(`http://localhost:3001/users/comment/${postId}`);
+console.log('add comment function',addComment)
+
+}

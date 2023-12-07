@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 
 const AuthFun={
-    getProfile(data){
+    getProfile(){
 
 const getToken=JSON.parse(localStorage.getItem('token'));
 const decoded = jwtDecode(getToken, "mysecret");
@@ -26,6 +26,8 @@ if(!userData){
 return 
 }else{
     localStorage.setItem('token',JSON.stringify(userData.userToken))
+   // localStorage.setItem('user',JSON.stringify(userData))
+
     window.location.href='/dashboard'
 }
             },

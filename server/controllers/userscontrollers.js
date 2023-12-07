@@ -5,7 +5,13 @@ const data={userName:'ali',email:'a@a.com',password:'123'}
 const {signinToken}=require('../utils/Auth')
 module.exports={
     getAllTest:async(req,res)=>{
-const getUsers=await User.find({})
+const getUsers=await User.find({}).populate('posts').populate({
+ path:'posts',
+ populate:{
+    path:'comments',
+    model:'Comment'
+ }   
+})
 const getfriends=await User.find({})
 res.json({getUsers}) 
 
@@ -49,7 +55,13 @@ userLogin: async (req, res) => {
   
  usersPostGET:async(req,res)=>{
     const Id=req.params.userId
-const getPost=await User.findById(Id).populate('posts')
+const getPost=await User.findById(Id).populate('posts').populate({
+    path:'posts',
+    populate:{
+       path:'comments',
+       model:'Comment' 
+    }
+})
 res.json({getPost})},
 
  createPost:async(req,res)=>{

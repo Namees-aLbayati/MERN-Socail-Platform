@@ -41,17 +41,29 @@ export default function PostCards() {
 
     }
 },[dispatch,userId])
-
+const formattedDate =(date)=> new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  const elementStyle = {
+    backgroundColor: 'rgba(205, 209, 228, 0.5)',
+    padding: '10px',
+    borderRadius: '5px',
+  };
+function handleLikesFun(e,postId){
+    console.log('like clicked',postId)
+}
   return (
     <div>
 
     {posts.map((post)=>(
 
-<Card class='mt-5 ' style={{backgroundColor:'wheat'}} >
+<Card class='m-5 border border-info-subtle ' style={elementStyle} >
 <CardHeader
   avatar={
    <AvatarImage userFullname={userFullname}/>
@@ -62,7 +74,7 @@ export default function PostCards() {
     </IconButton>
   }
   title={userFullname.userName}
-  subheader="September 14, 2016"
+  subheader={formattedDate(post.postTime)}
 />
 
 <CardContent>
@@ -71,8 +83,8 @@ export default function PostCards() {
   </Typography>
 </CardContent>
 <CardActions disableSpacing>
-  <IconButton aria-label="add to favorites">
-    <FavoriteIcon />
+  <IconButton aria-label="Likes">
+    <FavoriteIcon onClick={(e)=>handleLikesFun(e,post._id)} />
   </IconButton>
   <IconButton aria-label="share">
     <ShareIcon />
@@ -81,22 +93,26 @@ export default function PostCards() {
     expand={expanded}
     onClick={handleExpandClick}
     aria-expanded={expanded}
-    aria-label="show more"
+    aria-label="show Comments"
   >
     <ExpandMoreIcon />
   </ExpandMore>
 </CardActions>
 <Collapse in={expanded} timeout="auto" unmountOnExit>
   <CardContent>
-    <Typography paragraph>Method:</Typography>
- 
- 
-    <Typography paragraph>
-     {post.content}
-    </Typography>
-    <Typography>
-      Set aside off of the heat to let rest for 10 minutes, and then serve.
-    </Typography>
+    
+    
+  {post.comments.length > 0 && (
+        <div>
+          <Typography paragraph>Comments:</Typography>
+          <Typography paragraph>
+            {post.comments.map((comment) => (
+              <p key={comment._id}>{comment.comment}</p>
+            ))}
+          </Typography>
+        </div>
+      )}
+  
   </CardContent>
 </Collapse>
 </Card>

@@ -36,6 +36,7 @@ if(dataToFetch.userName!==""){
   axios.post('/users/signup',dataToFetch).then((result)=>{
     if(result.status===200){
    AuthFun.login(result.data);
+   AuthFun.getProfile()
 
     }else{
       window.alert('something went wrong')
@@ -46,6 +47,8 @@ if(dataToFetch.userName!==""){
 axios.post('/users/login',dataToFetch).then((result)=>{
   if(result.status===200){
     AuthFun.login(result.data);
+    AuthFun.getProfile()
+
 
   }
 })

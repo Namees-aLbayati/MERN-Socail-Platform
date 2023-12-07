@@ -38,6 +38,7 @@ const darkThemeNav = createTheme({
     const getUserLocalstorage=JSON.parse(localStorage.getItem('user'))
 const navigateFun=()=>navigate('/');
 useEffect(()=>{
+  
     dispatch(setCurrentUser(getUserLocalstorage))
 })
 

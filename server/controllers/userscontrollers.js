@@ -1,4 +1,4 @@
-const {User,Post}=require('../models');
+const {User,Post,Comment}=require('../models');
 const db=require('../config/connection')
 const mongoose=require('mongoose')
 const data={userName:'ali',email:'a@a.com',password:'123'}
@@ -94,6 +94,21 @@ return res.json(pos)
     return err
 }
 
+
+},
+addComment:async(req,res)=>{
+    try{
+        const commentData=await Comment.create({postId:req.params.postId,comment:req.body.comment,user:req.body.commenterId});
+        console.log(commentData,'data comm')
+if(commentData){
+    const getPost=await Post.findByIdAndUpdate(req.params.postId,
+{$addToSet:{comments:commentData._id}})
+console.log('post and comment added',getPost)
+res.status(200).json(getPost)
+}
+    }catch(err){
+        res.status(400).json(err)
+    }
 
 }
 }

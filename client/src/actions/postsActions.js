@@ -32,6 +32,7 @@ export const SET_THEME_MODE=(data)=>({
     payload:data
 })
 
+
 export const fetchUserPostFun=async(userId,dispatch)=>{
 
 try{
@@ -46,8 +47,35 @@ dispatch(setFetchPostFail(err))
 
 }
 }
-export const addComment=async(postId,userComment,dispatch)=>{
-const addComment=await axios.put(`http://localhost:3001/users/comment/${postId}`);
-console.log('add comment function',addComment)
+export const addCommentFun = async (postId, comment, commenterId, dispatch) => {
+    try {
+      const response = await axios.put(`http://localhost:3001/users/comment/${postId}`, {
+        comment: comment.comment,
+        commenterId: commenterId.userId,
+      });
+  
+      if (response.status === 200) {
+        console.log('Comment added successfully:', response);
+  
+        // Assuming the response.data contains the newly added comment with an _id
+        const newCommentId = response.data._id;
+  
+        // Execute the function to fetch posts after adding a comment
+        fetchUserPostFun(commenterId.userId, dispatch);
+  
+        // Optionally, you can dispatch other actions if needed
+        // dispatch(someOtherAction());
+  
+        // Return something if necessary
+        return true;
+      }
+    } catch (error) {
+      // Handle errors if needed
+      console.error('Error adding comment:', error);
+      return false;
 
-}
+      // Dispatch an action to indicate the failure
+      // dispatch(someFailureAction());
+    }
+  };
+  

@@ -5,7 +5,10 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import {useSelector} from 'react-redux'
 import { RestfulRequestFun } from '../../../../utils/Axios';
+import { fetchUserPostFun } from '../../../../actions/postsActions';
+import {useDispatch} from 'react-redux'
 export function PostCreationModal(props) {
+  const dispatch=useDispatch()
     const userId=useSelector((state)=>state.post.user._id)
     const [postCreationForm,setPostCreationForm]=useState({
         postContent:"",
@@ -17,6 +20,7 @@ export function PostCreationModal(props) {
       RestfulRequestFun.createPostRequest(postCreationForm).then((data)=>{
     if(data){
       window.alert('posted!')
+      fetchUserPostFun(userId,dispatch)
       postCreationForm.postContent="";
       props.onHide()
 

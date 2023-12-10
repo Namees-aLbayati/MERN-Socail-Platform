@@ -13,7 +13,7 @@ function HeartOfPage() {
   return (
 <div class=" p-2  d-flex flex-column ">
 <section class='d-flex flex-row m-5'>
- 
+
 <TextField
           id="filled-multiline-flexible"
           label={`What is in your mind ${userFullname.userName}?`}
@@ -26,7 +26,6 @@ function HeartOfPage() {
   <AvatarImage userFullname={userFullname}/>
         <PostCreationModal show={showModal} onHide={()=>setShowModal(false)} userFullname={userFullname}/>
   </section>
-       
 <PostCards/>
     </div>
   )

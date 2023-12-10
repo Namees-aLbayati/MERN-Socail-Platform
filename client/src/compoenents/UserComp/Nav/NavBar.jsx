@@ -9,6 +9,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AvatarImage from './Avatar';
 import {useSelector} from 'react-redux'
 import Icons from './Icons';
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -51,8 +52,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
 export default function NavBar() {
+  const [searchedUser,setSearchedUser]=React.useState("")
   const userFullname=useSelector((state)=>state.post.user);
+  console.log('searchinhg',searchedUser)
+  function HandlenterSearchedName(e){
+ setSearchedUser(e.target.value);
+ console.log(searchedUser)
+
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -79,7 +88,8 @@ export default function NavBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-            />
+              onChange={(e)=>HandlenterSearchedName(e)}
+           />
           </Search>
         </Toolbar>
       </AppBar>

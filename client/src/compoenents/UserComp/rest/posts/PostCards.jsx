@@ -86,7 +86,7 @@ commentVal.comment="";
 
     {posts.map((post)=>(
 
-<Card class=' border border-2 ' style={{margin:'20px', backgroundColor: 'rgba(205, 209, 228, 0.5)',
+<Card class=' border border-2 ' key={post._id} style={{margin:'20px', backgroundColor: 'rgba(205, 209, 228, 0.5)',
     borderRadius: '5px'}} >
 <CardHeader
   avatar={

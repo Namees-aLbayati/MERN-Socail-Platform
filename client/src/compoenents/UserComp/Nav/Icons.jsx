@@ -10,8 +10,10 @@ import { SET_THEME_MODE } from '../../../actions/postsActions';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { styled } from '@mui/material/styles';
-
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 function Icons() {
+  const navigate=useNavigate()
     const [checkedValue,setCheckedVal]=useState(false)
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
@@ -69,6 +71,12 @@ setCheckedVal(!checkedValue)
         dispatch(SET_THEME_MODE(!darkmode))
 
     }
+    function handelLogout(){
+      console.log('clicked logout')
+      localStorage.clear();
+      navigate('/')
+
+    }
   return (
     <div>
           <FormControlLabel
@@ -93,6 +101,11 @@ setCheckedVal(!checkedValue)
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={0} color="error">
             <HomeIcon />
+          </Badge>
+        </IconButton>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={handelLogout}>
+          <Badge badgeContent={0} color="error">
+            <LogoutIcon />
           </Badge>
         </IconButton>
 

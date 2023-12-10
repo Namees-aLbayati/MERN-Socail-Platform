@@ -8,7 +8,9 @@ import AuthFun from '../utils/Auth'
 import { Link,useNavigate } from 'react-router-dom'
 import LeftBar from './UserComp/leftBar/leftBar';
 import HeartOfPage from './UserComp/rest/heartOfPage';
+import FriendComp from './UserComp/rest/friend/FriendComp';
 function Dashboard() {
+  const userDataLoSto=JSON.parse(localStorage.getItem('user'))
 
     const checkDarkMode=useSelector((state)=>state.post.darkmode)
     const lightTheme = {
@@ -40,8 +42,8 @@ const navigateFun=()=>navigate('/');
 useEffect(()=>{
   
     dispatch(setCurrentUser(getUserLocalstorage))
-})
-
+},[])
+const userNow=useSelector((state)=>state.post.currentUser)
 const toggleDarkMode=()=>{
     if(checkDarkMode!==false){
 return darkThemeNav
@@ -57,46 +59,35 @@ const dashDarkToggle=()=>{
                 return 
         
             }
+
 }
-  return (
+console.log(userDataLoSto,'loca')
+return (
+  <div style={checkDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={toggleDarkMode}>
+    <NavBar />
 
-    <div style={checkDarkMode?darkTheme:lightTheme}  >
-              <ThemeProvider theme={toggleDarkMode}>
-
-
-        {AuthFun.IsloggedIn()?( 
-            <section >
-                <NavBar/>
-
-
-  <div class="row">
-    <div class='col-3'>
-    <LeftBar/>
-
-    </div>
-    <div class='col-6'>
-    <HeartOfPage/>
-
-    </div>
-
-
+      {AuthFun.IsloggedIn() && userNow && userNow.userName === userDataLoSto.userName ? (
+        <section>
+          <div class="row">
+            <div class='col-3'>
+              <LeftBar />
+            </div>
+            <div class='col-6'>
+              <HeartOfPage />
+            </div>
+          </div>
+        </section>
+      ) : AuthFun.IsloggedIn()&&userNow&&userNow.userName!==userDataLoSto.userName ? (
+      
+        <FriendComp/>
+      ) : (
+        <h1 style={{ cursor: "pointer", color: 'blue' }} onClick={navigateFun}>
+          You need to login first
+        </h1>
+      )}
+    </ThemeProvider>
   </div>
-  
-  </section>
-
-):
-
-
-
-
-
-
-(<h1 style={{cursor:"pointer",color:'blue'}} onClick={navigateFun}> You need to login first
-</h1>)}
-
-</ThemeProvider>
-    </div>
-  )
-}
-
+);
+      }
 export default Dashboard

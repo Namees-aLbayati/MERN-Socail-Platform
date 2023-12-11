@@ -110,6 +110,26 @@ res.status(200).json(getPost)
         res.status(400).json(err)
     }
 
+},
+searchForUser:async(req,res)=>{
+    console.log('query arrived server',req.query)
+try{
+    const searchQuery=req.query.q;
+    if(!searchQuery){
+        res.json({messege:'search not found'})
+    }
+    const regex=new RegExp(searchQuery,'i');
+    const users=await User.find({
+        $or:[
+            {userName:regex},
+            {email:regex}
+        ]
+    });
+    res.status(200).json(users)
+
+}catch(err){
+    res.status(400).json({message:'internal server error'})
+}
 }
 }
 /*

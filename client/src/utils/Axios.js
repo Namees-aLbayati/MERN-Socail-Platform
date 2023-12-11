@@ -11,6 +11,16 @@ createPostRequest:async (data)=>{
     })
 return response
 
+},
+SearchingForUser:async(query)=>{
+    console.log(query,'query here')
+const response=await axios.get(`http://localhost:3001/users/search?q=${query}`);
+
+console.log('search back',response)
+if(response.status!==200){
+    return false
+}
+return response
 }
 
 }

@@ -41,10 +41,10 @@ export function PostCreationModal(props) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
+        <Modal.Header >
           <Modal.Title id="contained-modal-title-vcenter">
-            <div class='d-flex ' style={{fontSize:"14px",position:'relative', left:'300px'}}>
-              <p style={{marginTop:'20px'}}>{props.userFullname.userName.toUpperCase()}</p>
+            <div class='d-flex ' style={{fontSize:"14px",position:'relative', left:'220px'}}>
+              <p style={{margin:'20px'}}>{props.userFullname.userName.toUpperCase()}</p>
 
                 <AvatarImage userFullname={props.userFullname} />
             </div>

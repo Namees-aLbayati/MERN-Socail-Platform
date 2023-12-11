@@ -13,7 +13,7 @@ import GroupIcon from '@mui/icons-material/Group';
 //will fetch friends list here
 export default function LeftBar() {
   return (
-    <Box sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.secondary' }}>
+    <Box sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.secondary' ,height:'100%'}}>
       <nav aria-label="main mailbox folders">
         <List>
         <ListItem disablePadding >

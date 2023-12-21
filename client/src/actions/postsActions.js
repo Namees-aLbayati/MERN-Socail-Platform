@@ -78,4 +78,14 @@ export const addCommentFun = async (postId, comment, commenterId, dispatch) => {
       // dispatch(someFailureAction());
     }
   };
+  export const addLikesFun=async(postId,userId,dispatch)=>{
+
+    const response = await axios.post(`http://localhost:3001/users/comment/${postId}`, {
+
+userId:userId
+  })
   
+  if(response.status===200){
+fetchUserPostFun(userId,dispatch)
+  }
+}

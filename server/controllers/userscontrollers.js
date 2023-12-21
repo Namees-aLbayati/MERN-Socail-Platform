@@ -55,13 +55,26 @@ userLogin: async (req, res) => {
   
  usersPostGET:async(req,res)=>{
     const Id=req.params.userId
-const getPost=await User.findById(Id).populate('posts').populate({
-    path:'posts',
-    populate:{
-       path:'comments',
-       model:'Comment' 
-    }
-})
+    const getPost = await User.findById(Id)
+    .populate({
+      path: 'posts',
+      populate: [
+        {
+          path: 'comments',
+          model: 'Comment',
+          populate: {
+            path: 'user',
+            model: 'User',
+          },
+        },
+        {
+          path: 'likes',
+          model: 'User',
+        },
+      ],
+    });
+  
+
 res.json({getPost})},
 
  createPost:async(req,res)=>{
@@ -130,6 +143,16 @@ try{
 }catch(err){
     res.status(400).json({message:'internal server error'})
 }
+},
+
+addLikes:async(req,res)=>{
+    console.log('likes backend',req.body,req.params.postId)
+    const updatePost=await Post.findByIdAndUpdate(req.params.postId,{
+$addToSet:{likes:req.body.userId}
+    });
+    console.log(updatePost,'likes added')
+if(updatePost){
+res.json({message:'added'})}
 }
 }
 /*

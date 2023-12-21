@@ -9,7 +9,7 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
-
+import AvatarReUse from './Avatar-reUse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
@@ -19,7 +19,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AvatarImage from '../../Nav/Avatar';
 import {useSelector,useDispatch} from 'react-redux'
-import { addCommentFun, fetchUserPostFun } from '../../../../actions/postsActions';
+import { addCommentFun, addLikesFun, fetchUserPostFun } from '../../../../actions/postsActions';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -66,7 +66,9 @@ const formattedDate =(date)=> new Date(date).toLocaleDateString('en-US', {
     borderRadius: '5px',
   };
 function handleLikesFun(e,postId){
-    console.log('like clicked',postId)
+    console.log('like clicked',postId,userId);
+    addLikesFun(postId,userId,dispatch)
+
 }
 function handelEnter(e,postId){
     console.log('comment',commentVal)
@@ -107,9 +109,16 @@ commentVal.comment="";
   </Typography>
 </CardContent>
 <CardActions disableSpacing>
-  <IconButton aria-label="Likes">
-    <FavoriteIcon onClick={(e)=>handleLikesFun(e,post._id)} />
-  </IconButton>
+  
+<div className='d-flex flex-row align-items-center'>
+      <IconButton aria-label="Likes" onClick={(e) => handleLikesFun(e, post._id)}>
+        <FavoriteIcon />
+      </IconButton>
+      <Typography variant="body2" color="textSecondary">
+        {post.likesNumber}
+      </Typography>
+    </div>
+  
   <IconButton aria-label="share">
     <ShareIcon />
   </IconButton>
@@ -133,7 +142,10 @@ commentVal.comment="";
 <Typography paragraph class="h7 pb-2 mb-4  border-bottom border-primary">Comments:</Typography>
           <Typography paragraph>
             {post.comments.map((comment) => (
-              <p key={comment._id}>{comment.comment}</p>
+              <div class='border border-2 border-primary p-2 mb-2 border-opacity-50 rounded ' style={{backgroundColor:'#ADD8E6	'}}>
+              <AvatarReUse username={comment.user.userName}/>
+              <p  key={comment._id}>{comment.comment}</p>
+              </div>
             ))}
           </Typography>
 

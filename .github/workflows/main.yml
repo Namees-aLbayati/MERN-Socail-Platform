@@ -37,6 +37,7 @@ jobs:
       - name: Build client
         run: |
           cd client
+          CI=false npm run build
           npm run build
 
       # 5. Upload React build output

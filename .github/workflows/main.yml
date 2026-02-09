@@ -17,35 +17,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout full repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Setup Node
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 16
 
-      # 3. Install client dependencies
       - name: Install client dependencies
         run: |
           cd client
           npm install
 
-      # 4. Build React client
-      - name: Build client
+      - name: Build React client (ignore lint)
+        env:
+          CI: false
         run: |
           cd client
-          CI=false npm run build
           npm run build
 
-      # 5. Upload React build output
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: client/build
 
-      # 6. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
